@@ -9,6 +9,8 @@ import {
 
 function App() {
   const [posts, setPosts] = useState([]);  
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   
   return (
    <div className="App">
@@ -19,8 +21,8 @@ function App() {
      <Routes>
        <Route path='/' element={<Posts posts={posts} setPosts={setPosts} />}></Route>
        {/*work on login register  */}
-       <Route path='/login' element={<Login />}></Route>
-       <Route path='/register' element={<Register />}></Route>
+       <Route path='/login' element={<Login username={username} setUsername={setUsername} password={password} setPassword={setPassword}/>}></Route>
+       <Route path='/register' element={<Register username={username} setUsername={setUsername} password={password}/>}></Route>
      </Routes>
    </div> 
   );
