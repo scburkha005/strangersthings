@@ -38,6 +38,10 @@ export const login = async(username, password) => {
       }
     })
   }); 
-  const data = await response.json();
-  return data;
+  const {data: {token, message}} = await response.json();
+  return [token,  message];
+}
+
+export const getUser = async () => {
+
 }
