@@ -21,13 +21,13 @@ export const register = async (username, password) => {
       }
     })
   });
-  const {data: userObject} = await response.json()
-  if (userObject.token) {
-    const {userObject: {token, message}} = userObject;
+  const responseObject = await response.json()
+  if (responseObject.token) {
+    const {data: {token, message}} = responseObject;
     return [token, message];
   } else {
     const token = '';
-    const {error: {message}} = userObject;
+    const {error: {message}} = responseObject;
     return [token, message]
   }
 }
@@ -45,8 +45,16 @@ export const login = async(username, password) => {
       }
     })
   }); 
-  const {data: {token, message}} = await response.json();
-  return [token,  message];
+  const responseObject = await response.json();
+  console.log(responseObject)
+  if (responseObject.token) {
+    const {data: {token, message}} = responseObject;
+    return [token, message];
+  } else {
+    const token = '';
+    const {error: {message}} = responseObject;
+    return [token, message];
+  }
 }
 
 export const getUser = async () => {
