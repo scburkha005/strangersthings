@@ -22,7 +22,14 @@ export const register = async (username, password) => {
     })
   });
   const data = await response.json()
-  return data
+  if (data.token) {
+    const {data: {token, message}} = data;
+    return [token, message];
+  } else {
+    const token = '';
+    const {error: {message}} = data;
+    return [token, message]
+  }
 }
 
 export const login = async(username, password) => {
