@@ -21,13 +21,13 @@ export const register = async (username, password) => {
       }
     })
   });
-  const data = await response.json()
-  if (data.token) {
-    const {data: {token, message}} = data;
+  const {data: userObject} = await response.json()
+  if (userObject.token) {
+    const {userObject: {token, message}} = userObject;
     return [token, message];
   } else {
     const token = '';
-    const {error: {message}} = data;
+    const {error: {message}} = userObject;
     return [token, message]
   }
 }
