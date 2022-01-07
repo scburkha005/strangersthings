@@ -1,6 +1,8 @@
 import { login } from '../api'
+import { useState } from 'react'
 
-const Login = ({ token, message, setToken, setMessage, password, username, setPassword, setUsername }) => {
+const Login = ({ token, setToken, password, username, setPassword, setUsername }) => {
+  const [message, setMessage] = useState('')
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -13,7 +15,7 @@ const Login = ({ token, message, setToken, setMessage, password, username, setPa
   return (
     <form className='login' onSubmit={handleSubmit}>
       <h2>Login</h2>
-      {token && <div>{message}</div>}
+      {message && <div>{message}</div>}
       <input value={username} onChange={(event)=>{setUsername(event.target.value)}}/>
       <input value={password} onChange={(event)=>{setPassword(event.target.value)}}/>
       <button>Submit</button>
