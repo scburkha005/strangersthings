@@ -58,6 +58,13 @@ export const login = async(username, password) => {
   }
 }
 
-export const getUser = async () => {
-
+export const isLoggedIn = async (token) => {
+  const response = await fetch(`${API_URL}/test/me`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  const data = await response.json();
+  return data
 }
