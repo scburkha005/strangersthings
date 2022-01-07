@@ -58,13 +58,21 @@ export const login = async(username, password) => {
   }
 }
 
-export const isLoggedIn = async (token) => {
+export const checkUser = async (token) => {
   const response = await fetch(`${API_URL}/test/me`, {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     }
   });
-  const data = await response.json();
-  return data
+  const userCheckObject = await response.json();
+  if (userCheckObject.data) {
+    const {data: {message, user: {username}}} = userCheckObject;
+    return [message, username];
+  } else {
+    const username = '';
+    const {error: {message}} = userCheckObject;
+    return [message, username];
+  }
+  return 
 }
