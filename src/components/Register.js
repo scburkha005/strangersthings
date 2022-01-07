@@ -3,6 +3,8 @@ import {register} from '../api'
 
 const Register = ({token, password, username, setToken, setPassword, setUsername}) => {
   const [message, setMessage] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();

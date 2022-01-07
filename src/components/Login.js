@@ -3,6 +3,8 @@ import { useState } from 'react'
 
 const Login = ({ token, setToken, password, username, setPassword, setUsername }) => {
   const [message, setMessage] = useState('')
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
