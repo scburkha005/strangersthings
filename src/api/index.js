@@ -22,7 +22,8 @@ export const register = async (username, password) => {
     })
   });
   const responseObject = await response.json()
-  if (responseObject.token) {
+  console.log(responseObject)
+  if (responseObject.data.token) {
     const {data: {token, message}} = responseObject;
     return [token, message];
   } else {
@@ -47,7 +48,7 @@ export const login = async(username, password) => {
   }); 
   const responseObject = await response.json();
   console.log(responseObject)
-  if (responseObject.token) {
+  if (responseObject.data.token) {
     const {data: {token, message}} = responseObject;
     return [token, message];
   } else {
