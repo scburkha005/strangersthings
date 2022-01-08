@@ -3,8 +3,8 @@ const API_URL = `https://strangers-things.herokuapp.com/api/${cohortName}`
 
 export const fetchPosts = async () => {
   const response = await fetch(`${API_URL}/posts`);
-  const data = await response.json();
-  const posts = data.data.posts;
+  const {data: {posts}} = await response.json();
+  console.log(posts)
   return posts
 }
 
@@ -74,5 +74,22 @@ export const checkUser = async (token) => {
     const {error: {message}} = userCheckObject;
     return [message, username];
   }
-  return 
+}
+
+export const createPost = async (token, title, description, price, willDeliver) => {
+  const response = await fetch(`${API_URL}/posts`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      post: {
+        title,
+        description,
+        price,
+        willDeliver
+      }
+    })
+  })
 }
