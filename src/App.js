@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import {
   Posts,
   Login,
-  Register
+  Register,
+  PostsForm
  } from './components'
 import { checkUser } from './api';
 
@@ -42,7 +43,7 @@ const App = () => {
       }
      </nav>
      <Routes>
-       <Route path='/' element={<Posts posts={posts} setPosts={setPosts} />}></Route>
+       <Route path='/' element={<Posts posts={posts} setPosts={setPosts} token={token}/>}></Route>
        {/*work on login register  */}
        <Route path='/login' element={<Login token={token} setToken={setToken} />}></Route>
        <Route path='/register' element={<Register token={token} setToken={setToken} />}></Route>
