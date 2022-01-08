@@ -6,25 +6,40 @@ import {
   Login,
   Register
  } from './components'
-import { isLoggedIn } from './api';
+import { checkUser } from './api';
 
 const App = () => {
   const [posts, setPosts] = useState([]);  
   const [token, setToken] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
-    isLoggedIn(token).then((data) => {
-      console.log('data', data)
+    checkUser(token).then(([message, username]) => {
+      console.log(message)
+      if (username) {
+        setIsLoggedIn(true);
+        setUsername(username);
+      } else {
+        setIsLoggedIn(false);
+      }
     });
   }, [token])
   
   return (
    <div className="App">
      <nav className='navbar'>
-      {/* { &&} */}
+      {username && <span>{username}</span>}
       <Link to='/'>Home</Link>
-      <Link to='/login'>Login</Link>
       <Link to='/register'>Register User</Link>
+      {
+        isLoggedIn ? 
+        <button onClick={() => {
+          setToken('');
+          setUsername('');
+        }}>Log Out</button> : 
+        <Link to='/login'>Login</Link>
+      }
      </nav>
      <Routes>
        <Route path='/' element={<Posts posts={posts} setPosts={setPosts} />}></Route>
