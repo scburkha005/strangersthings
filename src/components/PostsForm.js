@@ -1,21 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 
-const PostsForm = () => {
-  const blankPost = {
-    title: '',
-    description: '',
-    price: undefined,
-    willDeliver: false
-  }
-  const [singlePost, setSinglePost] = useState(blankPost);
+const PostsForm = ({singlePost, setSinglePost}) => {
   
   useEffect(() => {
     console.log(singlePost)
   }, [singlePost])
-
-  const handleSubmit = async () => {
-
-  }
 
   return (
     <form className='posts-form'>

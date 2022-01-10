@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { fetchPosts } from "../api";
-import PostsForm from './PostsForm';
+import AddPosts from './AddPosts';
 
 const Posts = ({posts, setPosts, token}) => {
   useEffect(() => {
@@ -10,7 +10,7 @@ const Posts = ({posts, setPosts, token}) => {
   }, [])
   return (
     <>
-      {token && <PostsForm />}
+      {token && <AddPosts token={token} />}
       <div className = 'posts'>
         {posts.length > 0 && posts.map(({_id, description}) => {
           return (
