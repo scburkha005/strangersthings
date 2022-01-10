@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 
-const PostsForm = ({singlePost, setSinglePost}) => {
+const PostsForm = ({singlePost, setSinglePost, handleSubmit}) => {
   
   useEffect(() => {
     console.log(singlePost)
   }, [singlePost])
 
   return (
-    <form className='posts-form'>
+    <form className='posts-form' onSubmit={handleSubmit}>
       <input value={singlePost.title} placeholder='title' onChange={(e)=>setSinglePost({...singlePost, title: e.target.value})}></input>
       <input value={singlePost.description} placeholder='description' onChange={(e)=>setSinglePost({...singlePost, description: e.target.value})}></input>
       <input value={singlePost.price} placeholder='price' onChange={(e)=>setSinglePost({...singlePost, price: e.target.value})}></input>
