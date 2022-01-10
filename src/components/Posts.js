@@ -12,10 +12,13 @@ const Posts = ({posts, setPosts, token}) => {
     <>
       {token && <AddPosts token={token} />}
       <div className = 'posts'>
-        {posts.length > 0 && posts.map(({_id, description}) => {
+        {posts.length > 0 && posts.map(({_id, description, title, price, willDeliver}) => {
           return (
-            <div key={_id}>
-              {description}
+            <div className='singlePost' key={_id}>
+              <h4>{title}</h4>
+              <div>{description}</div>
+              <div>{price}</div>
+              {willDeliver ? <div>Delivery Available!</div> : <div>Delivery Unavailable :[</div>}
             </div>
           )
         })}
