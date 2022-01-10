@@ -1,4 +1,4 @@
-const cohortName = "2110-FT-PT-WEB-PT"
+const cohortName = "2110-FTB-PT-WEB-PT"
 const API_URL = `https://strangers-things.herokuapp.com/api/${cohortName}`
 
 export const fetchPosts = async () => {
@@ -76,20 +76,15 @@ export const checkUser = async (token) => {
   }
 }
 
-export const createPost = async (token, title, description, price, willDeliver) => {
+export const createPost = async (token, postObject) => {
   const response = await fetch(`${API_URL}/posts`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
-    body: JSON.stringify({
-      post: {
-        title,
-        description,
-        price,
-        willDeliver
-      }
-    })
+    body: JSON.stringify({postObject})
   })
+  const data = await response.json();
+  console.log(data);
 }
