@@ -100,14 +100,19 @@ export const checkUser = async (token) => {
 }
 
 export const createPost = async (token, postObject) => {
-  const response = await fetch(`${API_URL}/posts`, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    },
-    body: JSON.stringify({postObject})
-  })
-  const data = await response.json();
-  console.log(data);
+  try {
+    console.log('postObject', postObject)
+    const response = await fetch(`${API_URL}/posts`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(postObject)
+    })
+    const {data: {post: singlePost}} = await response.json();
+    return singlePost;
+  } catch (err) {
+    console.error(err);
+  }
 }
