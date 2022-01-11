@@ -12,7 +12,7 @@ const PostsForm = ({singlePost: {post: {title, description, price}}, singlePost,
       <input value={description} placeholder='description' onChange={(e)=>setSinglePost({post: {...singlePost.post, description: e.target.value}})}></input>
       <input value={price} placeholder='price' onChange={(e)=>setSinglePost({post: {...singlePost.post, price: e.target.value}})}></input>
       <input type='checkbox' name='willDeliver' onClick={()=>setSinglePost({post: {...singlePost.post, willDeliver: !singlePost.willDeliver}})}></input>
-      <label for='willDeliver'>Will you deliver this item?</label>
+      <label htmlFor='willDeliver'>Will you deliver this item?</label>
       <button>Submit</button>
     </form>
   )
