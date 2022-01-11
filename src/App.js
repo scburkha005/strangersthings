@@ -21,7 +21,6 @@ const App = () => {
 
   useEffect(() => {
     if (token || localStorage.getItem('token')) {
-      console.log('hi')
       localStorage.setItem('token', token)
       checkUser(token).then(([message, username]) => {
         console.log(message)
@@ -30,8 +29,6 @@ const App = () => {
     }
   }, [token])
 
-
-  
   return (
    <div className="App">
      <nav className='navbar'>
