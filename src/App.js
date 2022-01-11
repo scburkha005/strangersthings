@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react'
 import {
   Posts,
   Login,
-  Register,
-  PostsForm
+  Register
  } from './components'
 import { checkUser } from './api';
 
