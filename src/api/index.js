@@ -137,3 +137,17 @@ export const createPost = async (token, postObject) => {
     console.error(err);
   }
 }
+
+export const deletePost = async (POST_ID, token) => {
+  try {
+    await fetch(`${API_URL}/posts/${POST_ID}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+  } catch (err) {
+    console.error(err);
+  }
+}
