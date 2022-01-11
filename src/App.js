@@ -6,10 +6,10 @@ import {
   Login,
   Register
  } from './components'
-import { checkUser } from './api';
+import { checkUser, fetchPosts } from './api';
 
 const App = () => {
-  const [posts, setPosts] = useState([]);  
+  const [posts, setPosts] = useState([]);
   const [token, setToken] = useState('');
   const [username, setUsername] = useState('');
 
@@ -20,13 +20,16 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    if (token || localStorage.getItem('token')) {
+    if (token) {
       localStorage.setItem('token', token)
       checkUser(token).then(([message, username]) => {
         console.log(message)
         setUsername(username);
       });
     }
+    fetchPosts(token).then((posts) => {
+      setPosts(posts);
+    })
   }, [token])
 
   return (
@@ -41,7 +44,7 @@ const App = () => {
           setToken('');
           setUsername('');
           localStorage.removeItem('token');
-        }}>Log Out</button> : 
+        }}>Log Out</button> :
         <Link to='/login'>Login</Link>
       }
      </nav>
