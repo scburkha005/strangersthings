@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const PostsForm = ({singlePost, setSinglePost, handleSubmit}) => {
+const PostsForm = ({singlePost: {post: {title, description, price}}, singlePost, setSinglePost, handleSubmit}) => {
   
   useEffect(() => {
     console.log(singlePost)
@@ -8,11 +8,12 @@ const PostsForm = ({singlePost, setSinglePost, handleSubmit}) => {
 
   return (
     <form className='posts-form' onSubmit={handleSubmit}>
-      <input value={singlePost.title} placeholder='title' onChange={(e)=>setSinglePost({...singlePost, title: e.target.value})}></input>
-      <input value={singlePost.description} placeholder='description' onChange={(e)=>setSinglePost({...singlePost, description: e.target.value})}></input>
-      <input value={singlePost.price} placeholder='price' onChange={(e)=>setSinglePost({...singlePost, price: e.target.value})}></input>
-      <input type='checkbox' name='willDeliver' onClick={()=>setSinglePost({...singlePost, willDeliver: !singlePost.willDeliver})}></input>
+      <input value={title} placeholder='title' onChange={(e)=>setSinglePost({post: {...singlePost.post, title: e.target.value}})}></input>
+      <input value={description} placeholder='description' onChange={(e)=>setSinglePost({post: {...singlePost.post, description: e.target.value}})}></input>
+      <input value={price} placeholder='price' onChange={(e)=>setSinglePost({post: {...singlePost.post, price: e.target.value}})}></input>
+      <input type='checkbox' name='willDeliver' onClick={()=>setSinglePost({post: {...singlePost.post, willDeliver: !singlePost.willDeliver}})}></input>
       <label for='willDeliver'>Will you deliver this item?</label>
+      <button>Submit</button>
     </form>
   )
 }
