@@ -5,7 +5,7 @@ import PostSingle from "./PostSingle";
 
 const Posts = ({posts, setPosts, token}) => {
   useEffect(() => {
-    fetchPosts().then((posts) => {
+    fetchPosts(token).then((posts) => {
       setPosts(posts)
     })
   }, [])
