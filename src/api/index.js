@@ -1,11 +1,20 @@
 const cohortName = "2110-FTB-PT-WEB-PT"
 const API_URL = `https://strangers-things.herokuapp.com/api/${cohortName}`
 
-export const fetchPosts = async () => {
-  const response = await fetch(`${API_URL}/posts`);
-  const {data: {posts}} = await response.json();
-  console.log(posts)
-  return posts
+export const fetchPosts = async (token) => {
+  try {
+    const response = await fetch(`${API_URL}/posts`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    const {data: {posts}} = await response.json();
+    console.log(posts)
+    return posts
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 export const apiCalls = async ({token, url, method, body}) => {
@@ -32,70 +41,82 @@ export const apiCalls = async ({token, url, method, body}) => {
 }
 
 export const register = async (username, password) => {
-  const response = await fetch(`${API_URL}/users/register`, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      user: {
-        username,
-        password
-      }
-    })
-  });
-  const responseObject = await response.json()
-  console.log(responseObject)
-  if (responseObject.data.token) {
-    const {data: {token, message}} = responseObject;
-    return [token, message];
-  } else {
-    const token = '';
-    const {error: {message}} = responseObject;
-    return [token, message]
+  try {
+    const response = await fetch(`${API_URL}/users/register`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: {
+          username,
+          password
+        }
+      })
+    });
+    const responseObject = await response.json()
+    console.log(responseObject)
+    if (responseObject.data.token) {
+      const {data: {token, message}} = responseObject;
+      return [token, message];
+    } else {
+      const token = '';
+      const {error: {message}} = responseObject;
+      return [token, message]
+    }
+  } catch (err) {
+    console.error(err);
   }
 }
 
 export const login = async(username, password) => {
-  const response = await fetch(`${API_URL}/users/login`, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      user: {
-        username,
-        password
-      }
-    })
-  }); 
-  const responseObject = await response.json();
-  console.log(responseObject)
-  if (responseObject.data.token) {
-    const {data: {token, message}} = responseObject;
-    return [token, message];
-  } else {
-    const token = '';
-    const {error: {message}} = responseObject;
-    return [token, message];
+  try {
+    const response = await fetch(`${API_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: {
+          username,
+          password
+        }
+      })
+    }); 
+    const responseObject = await response.json();
+    console.log(responseObject)
+    if (responseObject.data.token) {
+      const {data: {token, message}} = responseObject;
+      return [token, message];
+    } else {
+      const token = '';
+      const {error: {message}} = responseObject;
+      return [token, message];
+    }
+  } catch (err) {
+    console.error(err);
   }
 }
 
 export const checkUser = async (token) => {
-  const response = await fetch(`${API_URL}/test/me`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+  try {
+    const response = await fetch(`${API_URL}/test/me`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    const userCheckObject = await response.json();
+    if (userCheckObject.data) {
+      const {data: {message, user: {username}}} = userCheckObject;
+      return [message, username];
+    } else {
+      const username = '';
+      const {error: {message}} = userCheckObject;
+      return [message, username];
     }
-  });
-  const userCheckObject = await response.json();
-  if (userCheckObject.data) {
-    const {data: {message, user: {username}}} = userCheckObject;
-    return [message, username];
-  } else {
-    const username = '';
-    const {error: {message}} = userCheckObject;
-    return [message, username];
+  } catch (err) {
+    console.error(err);
   }
 }
 
