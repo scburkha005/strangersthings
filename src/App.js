@@ -11,20 +11,26 @@ import { checkUser } from './api';
 const App = () => {
   const [posts, setPosts] = useState([]);  
   const [token, setToken] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-    checkUser(token).then(([message, username]) => {
-      console.log(message)
-      if (username) {
-        setIsLoggedIn(true);
+    if (localStorage.getItem('token')) {
+      setToken(localStorage.getItem('token'));
+    }
+  }, [])
+
+  useEffect(() => {
+    if (token || localStorage.getItem('token')) {
+      console.log('hi')
+      localStorage.setItem('token', token)
+      checkUser(token).then(([message, username]) => {
+        console.log(message)
         setUsername(username);
-      } else {
-        setIsLoggedIn(false);
-      }
-    });
+      });
+    }
   }, [token])
+
+
   
   return (
    <div className="App">
@@ -33,10 +39,11 @@ const App = () => {
       <Link to='/'>Home</Link>
       <Link to='/register'>Register User</Link>
       {
-        isLoggedIn ? 
+        token ? 
         <button onClick={() => {
           setToken('');
           setUsername('');
+          localStorage.removeItem('token');
         }}>Log Out</button> : 
         <Link to='/login'>Login</Link>
       }
