@@ -10,7 +10,7 @@ const Posts = ({posts, setPosts, token}) => {
   }, [])
   return (
     <>
-      {token && <AddPosts token={token} />}
+      {token && <AddPosts token={token} setPosts={setPosts} posts={posts}/>}
       <div className = 'posts'>
         {posts.length > 0 && posts.map(({_id, description, title, price, willDeliver}) => {
           return (
