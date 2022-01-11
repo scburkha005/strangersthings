@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { fetchPosts } from "../api";
 import AddPosts from './AddPosts';
+import PostSingle from "./PostSingle";
 
 const Posts = ({posts, setPosts, token}) => {
   useEffect(() => {
@@ -12,16 +13,7 @@ const Posts = ({posts, setPosts, token}) => {
     <>
       {token && <AddPosts token={token} setPosts={setPosts} posts={posts}/>}
       <div className = 'posts'>
-        {posts.length > 0 && posts.map(({_id, description, title, price, willDeliver}) => {
-          return (
-            <div className='singlePost' key={_id}>
-              <h4>{title}</h4>
-              <div>{description}</div>
-              <div>{price}</div>
-              {willDeliver ? <div>Delivery Available!</div> : <div>Delivery Unavailable :[</div>}
-            </div>
-          )
-        })}
+        {posts.length > 0 && posts.map(({_id, description, title, price, willDeliver}) => <PostSingle key={_id} description={description} title={title} price={price} willDeliver={willDeliver}/>)}
       </div>
     </>
   )
