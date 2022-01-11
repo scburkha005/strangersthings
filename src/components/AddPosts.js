@@ -1,22 +1,28 @@
 import { useState } from 'react';
 import  PostsForm  from "./PostsForm";
+import { createPost } from '../api';
 
-const AddPosts = ({token}) => {
+const AddPosts = ({token, posts, setPosts}) => {
   const blankPost = {
-    title: '',
-    description: '',
-    price: undefined,
-    willDeliver: false
+    post: {
+      title: '',
+      description: '',
+      price: '',
+      willDeliver: false
+    }
   }
   const [singlePost, setSinglePost] = useState(blankPost);
 
-  const handleAdd = (e) => {
+  const handleAdd = async (e) => {
     try {
       e.preventDefault();
+      const createdPost = await createPost(token, singlePost);
+      console.log(createdPost);
+      setPosts([...posts, createdPost]);
+      setSinglePost(blankPost);
     } catch(err) {
       console.error(err);
     }
-
   }
 
   return (
