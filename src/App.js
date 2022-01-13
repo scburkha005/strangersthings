@@ -3,15 +3,14 @@ import { Routes, Route, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import {
   Posts,
-  Login,
-  Register
+  AccountForm
  } from './components'
 import { checkUser, fetchPosts } from './api';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState('');
-  const [username, setUsername] = useState('');
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -22,9 +21,8 @@ const App = () => {
   useEffect(() => {
     if (token) {
       localStorage.setItem('token', token)
-      checkUser(token).then(([message, username]) => {
-        console.log(message)
-        setUsername(username);
+      checkUser(token).then((userObject) => {
+        setUser(userObject);
       });
     }
     fetchPosts(token).then((posts) => {
@@ -35,24 +33,22 @@ const App = () => {
   return (
    <div className="App">
      <nav className='navbar'>
-      {username && <span>{username}</span>}
+      {user.username && <span>{user.username}</span>}
       <Link to='/'>Home</Link>
-      <Link to='/register'>Register User</Link>
       {
         token ? 
         <button onClick={() => {
           setToken('');
-          setUsername('');
+          setUser({});
           localStorage.removeItem('token');
         }}>Log Out</button> :
-        <Link to='/login'>Login</Link>
+        <Link to='/account/login'>Login</Link>
       }
      </nav>
      <Routes>
        <Route path='/' element={<Posts posts={posts} setPosts={setPosts} token={token}/>}></Route>
        {/*work on login register  */}
-       <Route path='/login' element={<Login token={token} setToken={setToken} />}></Route>
-       <Route path='/register' element={<Register token={token} setToken={setToken} />}></Route>
+       <Route exact path='/account/:method' element={ <AccountForm setToken={setToken}/>}></Route>
      </Routes>
    </div> 
   );
