@@ -1,4 +1,4 @@
-const PostSingle = ({title, description, price, willDeliver}) => {
+const PostSingle = ({children, post: {title, description, price, willDeliver}}) => {
  
   return (
     <div className='singlePost'>
@@ -6,6 +6,7 @@ const PostSingle = ({title, description, price, willDeliver}) => {
       <div>{description}</div>
       <div>{price}</div>
       {willDeliver ? <div>Delivery Available!</div> : <div>Delivery Unavailable :[</div>}
+      {children}
     </div>
   )
 }
