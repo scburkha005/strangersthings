@@ -56,11 +56,11 @@ export const register = async (username, password) => {
     });
     const responseObject = await response.json()
     console.log(responseObject)
+    const token = '';
     if (responseObject.data.token) {
-      const {data: {token, message}} = responseObject;
+      const {data: { message}} = responseObject;
       return [token, message];
     } else {
-      const token = '';
       const {error: {message}} = responseObject;
       return [token, message]
     }
