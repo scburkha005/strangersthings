@@ -5,10 +5,6 @@ import PostSingle from "./PostSingle";
 
 const Posts = ({posts, setPosts, token}) => {
 
-  const handleDelete = async () => {
-    const newArray = posts.filter((el) => el._id )
-  }
-
   return (
     <>
       {token && <AddPosts token={token} setPosts={setPosts} posts={posts}/>}
@@ -16,7 +12,15 @@ const Posts = ({posts, setPosts, token}) => {
         {posts.length > 0 && posts.map((post) => {
           return (
             <PostSingle key={post._id} post={post}>
-              {post.isAuthor && <button onClick={handleDelete}>Delete</button>}
+              {post.isAuthor && <button onClick={async () => {
+                try {
+                  await deletePost(post._id, token)
+                  const newArray = posts.filter((el) => el._id !== post._id);
+                  setPosts(newArray);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}>Delete</button>}
             </PostSingle>
           )
         })}
