@@ -57,7 +57,7 @@ export const register = async (username, password) => {
     const responseObject = await response.json()
     console.log(responseObject)
     const token = '';
-    if (responseObject.data.token) {
+    if (responseObject.data) {
       const {data: { message}} = responseObject;
       return [token, message];
     } else {
@@ -100,21 +100,17 @@ export const login = async(username, password) => {
 
 export const checkUser = async (token) => {
   try {
-    const response = await fetch(`${API_URL}/test/me`, {
+    const response = await fetch(`${API_URL}/users/me`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       }
     });
-    const userCheckObject = await response.json();
-    if (userCheckObject.data) {
-      const {data: {message, user: {username}}} = userCheckObject;
-      return [message, username];
-    } else {
-      const username = '';
-      const {error: {message}} = userCheckObject;
-      return [message, username];
+    const userObject = await response.json();
+    if (userObject.success) {
+      return userObject.data;
     }
+    return userObject;
   } catch (err) {
     console.error(err);
   }
@@ -129,7 +125,7 @@ export const createPost = async (token, postObject) => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(postObject)
+      body: JSON.stringify({post: postObject})
     })
     const {data: {post: singlePost}} = await response.json();
     return singlePost;
