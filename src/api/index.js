@@ -125,7 +125,7 @@ export const createPost = async (token, postObject) => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({post: postObject})
+      body: JSON.stringify(postObject)
     })
     const {data: {post: singlePost}} = await response.json();
     return singlePost;
