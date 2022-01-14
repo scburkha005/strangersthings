@@ -4,12 +4,13 @@ import { login, register } from '../api';
 
 const AccountForm = ({setToken}) => {
   const params = useParams();
+  const navigate = useNavigate();
   let {method} = params;
   const accountTitle = method === 'login' ? 'Log In' : 'Register';
   const [message, setMessage] = useState('')
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  let hashMap = {
+  const hashMap = {
     login,
     register
   };
@@ -19,6 +20,11 @@ const AccountForm = ({setToken}) => {
     const [token, message] = await hashMap[method](username, password);
     setToken(token);
     setMessage(message);
+    if (method === 'login') {
+      navigate('/posts')
+    } else {
+      navigate('/account/login')
+    }
   }
 
   return (
