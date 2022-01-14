@@ -2,11 +2,9 @@ import MessagesForm from "./MessagesForm";
 import { useState } from 'react';
 import { useParams, useNavigate } from "react-router";
 
-const PostSingle = ({children, setPosts, posts, post: newPost}) => {
+const PostSingle = ({children, token, setPosts, posts, post: newPost}) => {
   const {postid} = useParams();
   const navigate = useNavigate();
-
-  console.log(newPost)
 
   const [post, setPost] = useState(() => {
     if (postid) {
@@ -35,7 +33,7 @@ const PostSingle = ({children, setPosts, posts, post: newPost}) => {
       <div>{post.price}</div>
       {post.willDeliver ? <div>Delivery Available!</div> : <div>Delivery Unavailable :[</div>}
       {children}
-      {postid && <MessagesForm />}
+      {postid && token && !post.isAuthor && <MessagesForm token={token} postid={postid}/>}
       {
         postid ? <button onClick={handleChange}>Return to Posts</button> : <button onClick={handleChange}>View Post</button>
       }
