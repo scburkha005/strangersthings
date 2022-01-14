@@ -3,7 +3,8 @@ import { Routes, Route, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import {
   Posts,
-  AccountForm
+  AccountForm,
+  PostSingle
  } from './components'
 import { checkUser, fetchPosts } from './api';
 
@@ -34,7 +35,7 @@ const App = () => {
    <div className="App">
      <nav className='navbar'>
       {user.username && <span>{user.username}</span>}
-      <Link to='/'>Home</Link>
+      <Link to='/posts'>Posts</Link>
       {
         token ? 
         <button onClick={() => {
@@ -46,9 +47,10 @@ const App = () => {
       }
      </nav>
      <Routes>
-       <Route path='/' element={<Posts posts={posts} setPosts={setPosts} token={token}/>}></Route>
+       <Route path='/posts' element={<Posts posts={posts} setPosts={setPosts} token={token}/>}></Route>
        {/*work on login register  */}
        <Route exact path='/account/:method' element={ <AccountForm setToken={setToken}/>}></Route>
+       <Route exact path='/posts/:postid' element={<PostSingle posts={posts}/> }></Route>
      </Routes>
    </div> 
   );
