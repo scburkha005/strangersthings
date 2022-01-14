@@ -50,7 +50,7 @@ const App = () => {
        <Route path='/posts' element={<Posts posts={posts} setPosts={setPosts} token={token}/>}></Route>
        {/*work on login register  */}
        <Route exact path='/account/:method' element={ <AccountForm setToken={setToken}/>}></Route>
-       <Route exact path='/posts/:postid' element={<PostSingle posts={posts}/> }></Route>
+       <Route exact path='/posts/:postid' element={<PostSingle posts={posts} token={token}/> }></Route>
      </Routes>
    </div> 
   );
