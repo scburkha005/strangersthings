@@ -2,9 +2,11 @@ import { useState } from "react";
 import { deletePost } from "../api";
 import AddPosts from './AddPosts';
 import PostSingle from "./PostSingle";
+import { useNavigate } from "react-router";
 
 const Posts = ({posts, setPosts, token}) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   const filteredPosts = posts.filter(({description, title}) => {
     return description.toLowerCase().includes(searchTerm.toLowerCase()) || title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -13,7 +15,7 @@ const Posts = ({posts, setPosts, token}) => {
   return (
     <>
       <input type='text' placeholder='search vacation' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
-      {token && <AddPosts token={token} setPosts={setPosts} posts={posts}/>}
+      {token && <button onClick={() => navigate('/posts/add')}>Add Post</button>}
       <div className = 'posts'>
         {filteredPosts.length > 0 && filteredPosts.map((post) => {
           return (
