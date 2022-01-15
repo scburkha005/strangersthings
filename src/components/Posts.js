@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { fetchPosts, deletePost } from "../api";
+import { useState } from "react";
+import { deletePost } from "../api";
 import AddPosts from './AddPosts';
 import PostSingle from "./PostSingle";
 
