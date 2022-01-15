@@ -33,7 +33,8 @@ const PostSingle = ({children, token, setPosts, posts, post: newPost}) => {
     <div className='singlePost'>
       <div className='singlePost-title'>{post.title}</div>
       <div>{post.description}</div>
-      <div>{post.price}</div>
+      <div>Price: {post.price}</div>
+      <div>Location: {post.location}</div>
       {post.willDeliver ? <div>Delivery Available!</div> : <div>Delivery Unavailable :[</div>}
       {children}
       {postid && token && !post.isAuthor && <MessagesForm token={token} postid={postid}/>}
