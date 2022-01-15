@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react'
 import {
   Posts,
   AccountForm,
-  PostSingle
+  PostSingle,
+  Profile
  } from './components'
-import { checkUser, fetchPosts } from './api';
+import { getUser, fetchPosts } from './api';
+import AddPosts from './components/AddPosts';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -22,8 +24,9 @@ const App = () => {
   useEffect(() => {
     if (token) {
       localStorage.setItem('token', token)
-      checkUser(token).then((userObject) => {
+      getUser(token).then((userObject) => {
         setUser(userObject);
+        console.log('userobject',user)
       });
     }
     fetchPosts(token).then((posts) => {
@@ -36,6 +39,7 @@ const App = () => {
      <nav className='navbar'>
       {user.username && <span>{user.username}</span>}
       <Link to='/posts'>Posts</Link>
+      {token && <Link to='/profile'>Profile</Link> }
       {
         token ? 
         <button onClick={() => {
@@ -51,6 +55,8 @@ const App = () => {
        {/*work on login register  */}
        <Route exact path='/account/:method' element={ <AccountForm setToken={setToken}/>}></Route>
        <Route exact path='/posts/:postid' element={<PostSingle posts={posts} token={token}/> }></Route>
+       <Route path='/profile' element={<Profile user={user}/>} ></Route>
+       <Route exact path='/posts/add' element={<AddPosts token={token} setPosts={setPosts} posts={posts}/>} ></Route>
      </Routes>
    </div> 
   );
