@@ -1,4 +1,8 @@
 import { useEffect } from 'react'
+import TextField from '@mui/material/TextField';
+import Checkbox from '@mui/material/Checkbox';
+import { FormControlLabel } from '@mui/material';
+import './PostsForm.css';
 
 const PostsForm = ({singlePost: {post: {title, description, price, location}}, singlePost, setSinglePost, handleSubmit}) => {
   
@@ -8,12 +12,11 @@ const PostsForm = ({singlePost: {post: {title, description, price, location}}, s
 
   return (
     <form className='posts-form' onSubmit={handleSubmit}>
-      <input value={title} placeholder='title' onChange={(e)=>setSinglePost({post: {...singlePost.post, title: e.target.value}})}/>
-      <input value={description} placeholder='description' onChange={(e)=>setSinglePost({post: {...singlePost.post, description: e.target.value}})}/>
-      <input value={location} placeholder='location' onChange={(e)=>setSinglePost({post: {...singlePost, location: e.target.value}})} />
-      <input value={price} placeholder='price' onChange={(e)=>setSinglePost({post: {...singlePost.post, price: e.target.value}})}/> 
-      <input type='checkbox' name='willDeliver' onClick={()=>setSinglePost({post: {...singlePost.post, willDeliver: !singlePost.willDeliver}})}/>
-      <label htmlFor='willDeliver'>Will you deliver this item?</label>
+      <TextField variant='filled' required label='title' value={title} onChange={(e)=>setSinglePost({post: {...singlePost.post, title: e.target.value}})}/>
+      <TextField variant='filled' required label='description' value={description}  onChange={(e)=>setSinglePost({post: {...singlePost.post, description: e.target.value}})}/>
+      <TextField variant='filled' label='location' value={location} onChange={(e)=>setSinglePost({post: {...singlePost.post, location: e.target.value}})} />
+      <TextField variant='filled' required label='price' value={price} onChange={(e)=>setSinglePost({post: {...singlePost.post, price: e.target.value}})}/> 
+      <FormControlLabel label='Will you deliver this item' control={<Checkbox onChange={(e)=>setSinglePost({post: {...singlePost.post, willDeliver: !singlePost.post.willDeliver}})}/>}/>
       <button>Submit</button>
     </form>
   )
