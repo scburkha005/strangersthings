@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { sendMessage } from '../api';
 import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
 import './MessagesForm.css';
 
 const MessagesForm = ({token, postid}) => {
@@ -18,7 +19,7 @@ const MessagesForm = ({token, postid}) => {
   return (
     <form className='messages-form' onSubmit={handleSubmit}>
       <input type='text' value={message.content} placeholder='send a message' onChange={(e) => setMessage({content: e.target.value})}/>
-      <Button variant='contained'>Send</Button>
+      <Button variant='contained' endIcon={<SendIcon />}>Send</Button>
     </form>
   )
 }
