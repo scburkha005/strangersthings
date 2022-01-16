@@ -10,35 +10,34 @@ export const fetchPosts = async (token) => {
       }
     });
     const {data: {posts}} = await response.json();
-    console.log(posts)
     return posts
   } catch (err) {
     console.error(err);
   }
 }
+// created for practice/reference, unused
+// export const apiCalls = async ({token, url, method, body}) => {
+//   try {
+//     const options = {
+//       method: method ? method.toUpperCase() : "GET",
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(body)
+//     }
+//     if (token) {
+//       options.headers['Authorization'] = `Bearer ${token}`;
+//     }
 
-export const apiCalls = async ({token, url, method, body}) => {
-  try {
-    const options = {
-      method: method ? method.toUpperCase() : "GET",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body)
-    }
-    if (token) {
-      options.headers['Authorization'] = `Bearer ${token}`;
-    }
-
-    const response = await fetch(`${API_URL}${url}`, options)
-    const data = await response.json();
-    if (data.error) {
-      throw data.error;
-    } 
-  } catch (err) {
-    console.error(err);
-  }
-}
+//     const response = await fetch(`${API_URL}${url}`, options)
+//     const data = await response.json();
+//     if (data.error) {
+//       throw data.error;
+//     } 
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
 
 export const register = async (username, password) => {
   try {
@@ -55,9 +54,8 @@ export const register = async (username, password) => {
       })
     });
     const responseObject = await response.json()
-    console.log(responseObject)
     const token = '';
-    if (responseObject.data) {
+    if (responseObject.success) {
       const {data: { message}} = responseObject;
       return [token, message];
     } else {
@@ -84,8 +82,7 @@ export const login = async(username, password) => {
       })
     }); 
     const responseObject = await response.json();
-    console.log(responseObject)
-    if (responseObject.data.token) {
+    if (responseObject.success) {
       const {data: {token, message}} = responseObject;
       return [token, message];
     } else {
@@ -98,7 +95,7 @@ export const login = async(username, password) => {
   }
 }
 
-export const checkUser = async (token) => {
+export const getUser = async (token) => {
   try {
     const response = await fetch(`${API_URL}/users/me`, {
       headers: {
