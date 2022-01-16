@@ -1,15 +1,16 @@
 import './App.css';
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import {
   Posts,
   AccountForm,
   PostSingle,
   Profile,
-  Welcome
+  Welcome,
+  AddPosts
  } from './components'
 import { getUser, fetchPosts } from './api';
-import AddPosts from './components/AddPosts';
+import Button from '@mui/material/Button';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -18,6 +19,7 @@ const App = () => {
     messages: [],
     username: ''
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -46,11 +48,12 @@ const App = () => {
       {token && <Link to='/profile'>Profile</Link> }
       {
         token ? 
-        <button onClick={() => {
+        <Button variant='contained' onClick={() => {
           setToken('');
           setUser({});
           localStorage.removeItem('token');
-        }}>Log Out</button> :
+          navigate('/posts')
+        }}>Log Out</Button> :
         <Link to='/account/login'>Login</Link>
       }
      </nav>
