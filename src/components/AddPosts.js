@@ -8,14 +8,19 @@ const AddPosts = ({token, posts, setPosts}) => {
       title: '',
       description: '',
       price: '',
+      location: '',
       willDeliver: false
     }
   }
+
   const [singlePost, setSinglePost] = useState(blankPost);
 
   const handleAdd = async (e) => {
     try {
       e.preventDefault();
+      if (singlePost.post.location === '') {
+        singlePost.post.location = '[On Request]';
+      }
       const createdPost = await createPost(token, singlePost);
       console.log(createdPost);
       setPosts([...posts, createdPost]);
