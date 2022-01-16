@@ -6,21 +6,31 @@ import './PostSingle.css';
 const PostSingle = ({children, token, setPosts, posts, post: newPost}) => {
   const {postid} = useParams();
   const navigate = useNavigate();
-  console.log(postid)
 
   const [post, setPost] = useState(() => {
+    //account for refresh
     if (postid) {
-      for (let i = 0; i < posts.length; i++) {
-        console.log(posts)
-        if (posts[i]._id === postid) {
-          return posts[i];
-        }
+      return {
+        description: '',
+        price: '',
+        location: '',
+        willDeliver: false,
+        messages: [],
+        _id: ''
       }
     } else {
       return newPost
     }
   });
-  
+  //filters post to specific postid to render a single post
+  if (postid !== post._id) {
+    for (let i = 0; i < posts.length; i++) {
+      if (posts[i]._id === postid) {
+        setPost(posts[i]);
+      }
+    }
+  }
+  //return to all posts or view single post
   const handleChange = (e) => {
     if (postid) {
       navigate('/posts')
