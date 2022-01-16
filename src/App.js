@@ -5,7 +5,8 @@ import {
   Posts,
   AccountForm,
   PostSingle,
-  Profile
+  Profile,
+  Welcome
  } from './components'
 import { getUser, fetchPosts } from './api';
 import AddPosts from './components/AddPosts';
@@ -19,27 +20,19 @@ const App = () => {
   });
 
   useEffect(() => {
-    console.log('hi []')
     if (localStorage.getItem('token')) {
       setToken(localStorage.getItem('token'));
     }
-    //account for manual refresh
-    // if (token) {
-    //   getUser(token).then((userObject) => {
-    //     setUser(userObject)
-    //   })
-    // }
   }, [])
 
   useEffect(() => {
     if (token) {
-      console.log('hi')
       localStorage.setItem('token', token)
       getUser(token).then((userObject) => {
         setUser(userObject);
-        console.log('userobject',user)
       });
     }
+    //refetch posts to update isAuthor key on token change
     fetchPosts(token).then((posts) => {
       setPosts(posts);
     })
@@ -61,12 +54,12 @@ const App = () => {
         <Link to='/account/login'>Login</Link>
       }
      </nav>
-     <Routes>
+     <Routes> 
+       <Route path='/' element={<Welcome />}></Route>
        <Route path='/posts' element={<Posts posts={posts} setPosts={setPosts} token={token}/>}></Route>
-       {/*work on login register  */}
        <Route exact path='/account/:method' element={ <AccountForm setToken={setToken}/>}></Route>
        <Route exact path='/posts/:postid' element={<PostSingle posts={posts} token={token}/> }></Route>
-       <Route path='/profile' element={<Profile token={token} setUser={setUser} user={user}/>} ></Route>
+       <Route path='/profile' element={<Profile user={user}/>} ></Route>
        <Route exact path='/posts/add' element={<AddPosts token={token} setPosts={setPosts} posts={posts}/>} ></Route>
      </Routes>
    </div> 
