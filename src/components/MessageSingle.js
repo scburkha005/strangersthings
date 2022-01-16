@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import './MessageSingle.css';
 
 const MessageSingle = ({user, message: {content, fromUser: {username}, post: {title, _id}}}) => {
 
