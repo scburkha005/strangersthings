@@ -1,14 +1,9 @@
-import { useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import { FormControlLabel } from '@mui/material';
 import './PostsForm.css';
 
 const PostsForm = ({singlePost: {post: {title, description, price, location}}, singlePost, setSinglePost, handleSubmit}) => {
-  
-  useEffect(() => {
-    console.log(singlePost)
-  }, [singlePost])
 
   return (
     <form className='posts-form' onSubmit={handleSubmit}>
