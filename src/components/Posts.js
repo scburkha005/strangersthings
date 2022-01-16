@@ -21,7 +21,7 @@ const Posts = ({posts, setPosts, token}) => {
         {filteredPosts.length > 0 && filteredPosts.map((post) => {
           return (
             <PostSingle key={post._id} post={post} setPosts={setPosts} posts={posts}>
-              {post.isAuthor && <button onClick={async () => {
+              {post.isAuthor && <Button variant='outlined' onClick={async () => {
                 try {
                   await deletePost(post._id, token)
                   const newArray = posts.filter((el) => el._id !== post._id);
@@ -29,7 +29,7 @@ const Posts = ({posts, setPosts, token}) => {
                 } catch (err) {
                   console.error(err);
                 }
-              }}>Delete</button>}
+              }}>Delete</Button>}
             </PostSingle>
           )
         })}

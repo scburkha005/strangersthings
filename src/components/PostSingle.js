@@ -2,6 +2,7 @@ import MessagesForm from "./MessagesForm";
 import { useState } from 'react';
 import { useParams, useNavigate } from "react-router";
 import './PostSingle.css';
+import Button from '@mui/material/Button';
 
 const PostSingle = ({children, token, posts, post: newPost}) => {
   const {postid} = useParams();
@@ -49,7 +50,7 @@ const PostSingle = ({children, token, posts, post: newPost}) => {
       {children}
       {postid && token && !post.isAuthor && <MessagesForm token={token} postid={postid}/>}
       {
-        postid ? <button onClick={handleChange}>Return to Posts</button> : <button onClick={handleChange}>View Post</button>
+        postid ? <Button variant='outlined' onClick={handleChange}>Return to Posts</Button> : <Button variant='outlined' onClick={handleChange}>View Post</Button>
       }
       { postid && post.messages.map((message) => {
         return (
