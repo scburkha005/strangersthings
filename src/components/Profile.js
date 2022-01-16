@@ -1,7 +1,6 @@
 import MessageSingle from "./MessageSingle";
 
 const Profile = ({user, user: {messages}}) => {
-  console.log(user)
   const receivedMessages = messages.filter((message) => {
     return message.fromUser.username !== user.username;
   });
