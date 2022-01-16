@@ -1,0 +1,9 @@
+.posts-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 25vw;
+  justify-content: center;
+}
+.posts-form > button {
+  width: 5rem;
+}

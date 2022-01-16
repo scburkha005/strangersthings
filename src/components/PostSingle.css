@@ -1,0 +1,55 @@
+.singlePost {
+  box-shadow: 0px 0px 2px 2px rgb(190, 190, 190);
+  margin: .5rem 5rem;
+  padding: .5rem .75rem;
+  text-align: left;
+  font-size: .8rem;
+  line-height: .85rem;
+}
+
+.singlePost-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: .5rem;
+  padding-bottom: .25rem;
+  box-shadow: 0px 1px 0px black;
+}
+
+.singlePost > *:nth-child(2) {
+  color: grey;
+  padding-bottom: .5rem;
+}
+
+.singlePost > *:nth-child(5) {
+  margin-bottom: .25rem;
+}
+
+.singlePost > button {
+  margin-top: .25rem;
+  font-size: .7rem;
+  padding: .5px 6px;
+  margin-right: 2px;
+}
+
+.singlePost > button:last-child {
+  margin-right: 0px;
+}
+/* messages in single post view */
+.singlepost-singlemessage {
+  box-shadow: 0px 0px 2px 2px rgb(190, 190, 190);
+}
+
+.singlepost-singlemessage > * {
+  margin-left: 4px;
+}
+
+.singlepost-singlemessage > *:first-child {
+  margin-bottom: .25rem;
+  margin-top: .5rem;
+  padding-top: 2px;
+}
+
+.singlepost-singlemessage > *:nth-child(2) {
+  padding-bottom: .5rem;
+  color: grey;
+}

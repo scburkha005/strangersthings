@@ -1,0 +1,25 @@
+.messages-single {
+  box-shadow: 0px 0px 2px 2px rgb(190, 190, 190);
+  margin: 1rem 25vw;
+  padding: .25rem;
+  text-align: left;
+}
+/* targets username */
+.messages-single > *:nth-child(3n - 2) {
+  padding-bottom: .5rem;
+}
+/* message content */
+.messages-single > *:nth-child(3n - 1) {
+  font-size: .75rem;
+} 
+/* link to post */
+.messages-single > a {
+  text-decoration: none;
+  cursor: pointer;
+  font-size: .75rem;
+  color: rgb(0, 89, 255);
+}
+
+.messages-single > a:visited {
+  color: rgb(0, 89, 255);
+}

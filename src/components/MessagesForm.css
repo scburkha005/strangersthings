@@ -1,0 +1,9 @@
+.messages-form {
+  display: flex;
+}
+
+.messages-form > button {
+  font-size: .7rem;
+  padding: .5px 6px;
+  margin-right: 2px;
+}
