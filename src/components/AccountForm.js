@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { login, register } from '../api';
+import TextField from '@mui/material/TextField';
+import './AccountForm.css';
 
 const AccountForm = ({setToken}) => {
   const params = useParams();
@@ -36,8 +38,8 @@ const AccountForm = ({setToken}) => {
     <form className='account-form' onSubmit={handleSubmit}>
       <h2>{accountTitle}</h2>
       {message && <div>{message}</div>}
-      <input value={username} onChange={(event)=>{setUsername(event.target.value)}}/>
-      <input value={password} type='password' onChange={(event)=>{setPassword(event.target.value)}}/>
+      <TextField variant='filled' label='username' value={username} onChange={(event)=>{setUsername(event.target.value)}}/>
+      <TextField variant='filled' label='password' value={password} type='password' onChange={(event)=>{setPassword(event.target.value)}}/>
       <button>{accountTitle}</button>
       <div>
         {
