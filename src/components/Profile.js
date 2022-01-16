@@ -10,9 +10,9 @@ const Profile = ({user, user: {messages}}) => {
   return (
     <div className='user-profile'>
       <h4>Messages Received</h4>
-      {receivedMessages.length > 0 ? receivedMessages.map((message)=> <MessageSingle key={message.fromUser._id} message={message} user={user} />) : <div>No Messages Received</div>}
+      {receivedMessages.length > 0 ? receivedMessages.map((message)=> <MessageSingle key={message._id} message={message} user={user} />) : <div>No Messages Received</div>}
       <h4>Messages Sent</h4>
-      {sentMessages.length > 0 ? sentMessages.map((message)=> <MessageSingle key={message.fromUser._id} message={message} user={user} />) : <div>No Messages Received</div>}
+      {sentMessages.length > 0 ? sentMessages.map((message)=> <MessageSingle key={message._id} message={message} user={user} />) : <div>No Messages Received</div>}
     </div>
   )
 }
