@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { login, register } from '../api';
 
@@ -15,15 +15,20 @@ const AccountForm = ({setToken}) => {
     register
   };
 
+  useEffect(() => {
+    setUsername('');
+    setPassword('');
+  }, [method])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const [token, message] = await hashMap[method](username, password);
     setToken(token);
     setMessage(message);
     if (method === 'login') {
-      navigate('/posts')
+      navigate('/posts');
     } else {
-      navigate('/account/login')
+      navigate('/account/login');
     }
   }
 
@@ -32,7 +37,7 @@ const AccountForm = ({setToken}) => {
       <h2>{accountTitle}</h2>
       {message && <div>{message}</div>}
       <input value={username} onChange={(event)=>{setUsername(event.target.value)}}/>
-      <input value={password} onChange={(event)=>{setPassword(event.target.value)}}/>
+      <input value={password} type='password' onChange={(event)=>{setPassword(event.target.value)}}/>
       <button>{accountTitle}</button>
       <div>
         {
