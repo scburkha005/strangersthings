@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useParams, useNavigate } from "react-router";
 import './PostSingle.css';
 
-const PostSingle = ({children, token, setPosts, posts, post: newPost}) => {
+const PostSingle = ({children, token, posts, post: newPost}) => {
   const {postid} = useParams();
   const navigate = useNavigate();
 
