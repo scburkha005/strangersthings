@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { deletePost } from "../api";
-import AddPosts from './AddPosts';
 import PostSingle from "./PostSingle";
 import { useNavigate } from "react-router";
+import Button from '@mui/material/Button';
+import './Posts.css'
 
 const Posts = ({posts, setPosts, token}) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -15,7 +16,7 @@ const Posts = ({posts, setPosts, token}) => {
   return (
     <>
       <input type='text' placeholder='search vacation' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
-      {token && <button onClick={() => navigate('/posts/add')}>Add Post</button>}
+      {token && <Button className='addpost-button' variant='contained' onClick={() => navigate('/posts/add')}>Add Post</Button>}
       <div className = 'posts'>
         {filteredPosts.length > 0 && filteredPosts.map((post) => {
           return (
