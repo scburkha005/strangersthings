@@ -157,3 +157,20 @@ export const sendMessage = async (token, POST_ID, message) => {
   const data = await response.json();
   return data;
 }
+
+export const editPostCall = async (token, id, postObject) => {
+  try {
+    const response = await fetch(`${API_URL}/posts/${id}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(postObject)
+    });
+    const {data: {post}} = await response.json();
+    return post;
+  } catch (err) {
+    console.error(err);
+  }
+}
