@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router";
 import './PostSingle.css';
 import Button from '@mui/material/Button';
 
-const PostSingle = ({children, token, posts, post: newPost}) => {
+const PostSingle = ({children, token, setEditPost, posts, post: newPost}) => {
   const {postid} = useParams();
   const navigate = useNavigate();
 
@@ -39,6 +39,24 @@ const PostSingle = ({children, token, posts, post: newPost}) => {
       navigate(`/posts/${post._id}`)
     }
   }
+
+  const handleEdit = (e) => {
+    for (let i = 0; i < posts.length; i++) {
+      if (posts[i]._id === post._id) {
+        const postObject = {
+          post: {
+            title: posts[i].title,
+            description: posts[i].description,
+            location: posts[i].location,
+            price: posts[i].price,
+            willDeliver: posts[i].willDeliver
+          }
+        }
+        setEditPost(postObject);
+      }
+    }
+    navigate(`/posts/${post._id}/edit`);
+  }
  
   return (
     <div className='singlePost'>
@@ -52,6 +70,7 @@ const PostSingle = ({children, token, posts, post: newPost}) => {
       {
         postid ? <Button variant='outlined' onClick={handleChange}>Return to Posts</Button> : <Button variant='outlined' onClick={handleChange}>View Post</Button>
       }
+      {post.isAuthor && postid && <Button variant='outlined' onClick={handleEdit}>Edit Post</Button>}
       { postid && post.messages.map((message) => {
         return (
           <div key={message._id} className='singlepost-singlemessage'>
